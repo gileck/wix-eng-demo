@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head><title>Qwik Demo: ToDo</title>
+    <link rel="stylesheet" href="/base.css">
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body q:base="/build/">
+<todo on:q-render="./q-f8cd0420#ToDoApp_onRender" q:obj="1ym8w1nm6n5" todos="*1ym8w1nm6n5">
+    <section class="todoapp">
+        <header on:q-mount="./q-2ca54361#Header_onMount" on:q-render="./q-3c33fae0#Header_onRender"
+                q:obj="1ym8w1nm6n5 #2 !:1ysez2vhrah" todos="*1ym8w1nm6n5"><h1>todos</h1><input class="new-todo"
+                                                                                               placeholder="What needs to be done?"
+                                                                                               auto-focus="true"
+                                                                                               value=""
+                                                                                               on:keyup="./q-60ba711d#Header_onRender_on_keyup">
+        </header>
+        <main on:q-render="./q-f405ac95#Main_onRender" q:obj="#2 !1ym8w1nm6n5 !1ozd2142pwv" todos="*1ym8w1nm6n5"
+              class="main">
+            <ul class="todo-list">
+                <li on:q-mount="./q-cd81830b#Item_onMount" on:q-render="./q-4207e06a#Item_onRender"
+                    q:obj="#2 !2ah80h3s78z 1ym8w1nm6n5 #2 !:1tvm1br7mpt" item="*2ah80h3s78z" todos="*1ym8w1nm6n5"
+                    class="">
+                    <div class="view"><input class="toggle" type="checkbox"
+                                             on:click="./q-6642ef59#Item_onRender_on_click"><label
+                            on:dblclick="./q-a2debeb7#Item_onRender_on_dblclick">Read Qwik docs</label>
+                        <button class="destroy" on:click="./q-1f4ff08b#Item_onRender_on_click9"></button>
+                    </div>
+                </li>
+                <li on:q-mount="./q-cd81830b#Item_onMount" on:q-render="./q-4207e06a#Item_onRender"
+                    q:obj="#2 !c7xa57budq 1ym8w1nm6n5 #2 !:a7fyrwyk82" item="*c7xa57budq" todos="*1ym8w1nm6n5" class="">
+                    <div class="view"><input class="toggle" type="checkbox"
+                                             on:click="./q-6642ef59#Item_onRender_on_click"><label
+                            on:dblclick="./q-a2debeb7#Item_onRender_on_dblclick">Build HelloWorld</label>
+                        <button class="destroy" on:click="./q-1f4ff08b#Item_onRender_on_click9"></button>
+                    </div>
+                </li>
+                <li on:q-mount="./q-cd81830b#Item_onMount" on:q-render="./q-4207e06a#Item_onRender"
+                    q:obj="#2 !o0es1jxcew 1ym8w1nm6n5 #2 !:1haxh84ncnr" item="*o0es1jxcew" todos="*1ym8w1nm6n5"
+                    class="">
+                    <div class="view"><input class="toggle" type="checkbox"
+                                             on:click="./q-6642ef59#Item_onRender_on_click"><label
+                            on:dblclick="./q-a2debeb7#Item_onRender_on_dblclick">Profit</label>
+                        <button class="destroy" on:click="./q-1f4ff08b#Item_onRender_on_click9"></button>
+                    </div>
+                </li>
+            </ul>
+        </main>
+        <footer on:q-render="./q-ce0c6c44#Footer_onRender"
+                q:obj="#2 !1ym8w1nm6n5 !1ozd2142pwv !2ah80h3s78z !c7xa57budq !o0es1jxcew" todos="*1ym8w1nm6n5"
+                class="footer"><span class="todo-count"><strong>3</strong> items left</span>
+            <ul class="filters">
+                <li><a class="selected" on:click="./q-a9dfe69b#Footer_onRender_Filter_on_click" filter=all">All</a></li>
+                <li><a class="" on:click="./q-a9dfe69b#Footer_onRender_Filter_on_click" filter=active">Active</a></li>
+                <li><a class="" on:click="./q-a9dfe69b#Footer_onRender_Filter_on_click" filter=completed">Completed</a>
+                </li>
+            </ul>
+            <button class="clear-completed" on:click="./q-98c56953#Footer_onRender_on_click">Clear completed</button>
+        </footer>
+    </section>
+</todo>
+<script>const qrlResolver = (e, t, r, s, n) => (void 0 === r ? t ? (s = t.getAttribute("q:base"), n = qrlResolver(e, t.parentNode && t.parentNode.closest("[q\\:base]"))) : s = e.baseURI : r && (s = r, n = qrlResolver(e, t.closest("[q\\:base]"))), s ? new URL(s, n) : void 0);
+((e, t) => {
+    const r = async (t, r) => {
+        e.querySelectorAll("[on\\:" + t.replace(":", "\\:") + "]").forEach((e => s(e, t, r)))
+    }, s = async (t, r, s, o) => {
+        (o = qrlResolver(e, t, t.getAttribute("on:" + r))) && n(o, window[o.pathname] || await import((o + "").split("#")[0] + ".js"))(t, s, o)
+    }, n = (e, t, r) => t[r = e.hash.replace(/^#?([^?]*).*$/, "$1") || "default"] || (e => {
+        throw Error("QWIK: " + e)
+    })(e + " does not export " + r), o = async (t, n) => {
+        if ((n = t.target) == e) setTimeout((() => r("document:" + t.type, t))); else for (; n && n.getAttribute;) s(n, t.type, t), n = t.bubbles ? n.parentElement : null
+    }, a = t => e.addEventListener(t, o, {capture: !0}), l = s => {
+        s = e.readyState, t || "interactive" != s && "complete" != s || (t = 1, r("q-init", new CustomEvent("qInit")))
+    };
+    {
+        const t = e.querySelector("script[events]");
+        if (t) (t.getAttribute("events") || "").split(/[\s,;]+/).forEach(a); else for (const t in e) 0 == t.indexOf("on") && a(t.substring(2))
+    }
+    e.addEventListener("readystatechange", l), l()
+})(document);</script>
+<script type="qwik/json">{
+  "1ym8w1nm6n5": {
+    "filter": "all",
+    "items": "\u00101ozd2142pwv"
+  },
+  "1ozd2142pwv": [
+    "\u00102ah80h3s78z",
+    "\u0010c7xa57budq",
+    "\u0010o0es1jxcew"
+  ],
+  ":1ysez2vhrah": {
+    "text": ""
+  },
+  "2ah80h3s78z": {
+    "completed": false,
+    "title": "Read Qwik docs"
+  },
+  ":1tvm1br7mpt": {
+    "editing": false
+  },
+  "c7xa57budq": {
+    "completed": false,
+    "title": "Build HelloWorld"
+  },
+  ":a7fyrwyk82": {
+    "editing": false
+  },
+  "o0es1jxcew": {
+    "completed": false,
+    "title": "Profit"
+  },
+  ":1haxh84ncnr": {
+    "editing": false
+  }
+}
+</script>
+</body>
+</html>
