@@ -1,11 +1,16 @@
+function loadPosts() {
+    return fetch('https://jsonplaceholder.typicode.com/posts').then((res) => res.json())
+}
 
-// use dynamic to simulate streaming and talk about caching
+/**
+ * Page React component
+ */
 export default async function Posts() {
-    const posts = await fetch('https://jsonplaceholder.typicode.com/posts').then((res) => res.json())
+    const posts = await loadPosts()
     console.log(posts.length)
     return (
         <div>
-            <h1>Posts</h1>
+            <h1>Posts (NextJS)</h1>
             <div>
                 {posts.map((post) => (
                     <div key={post.id}>

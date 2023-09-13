@@ -1,16 +1,14 @@
-import React, {Suspense} from 'react'
+import React from 'react'
 import {SuspenseWrapper} from "./SuspenseWrapper";
 
 
-function Comp() {
-    return <div> Suspensed Component </div>
-}
 function App() {
   return (
     <div>
-        <SuspenseWrapper name={'Comp1'}/>
-        <SuspenseWrapper name={'Comp2'}/>
-        <SuspenseWrapper name={'Comp3'}/>
+        <h1>React</h1>
+        <SuspenseWrapper name={'Comp1'} time={1000}/>
+        <SuspenseWrapper name={'Comp2'} time={2000}/>
+        <SuspenseWrapper name={'Comp3'} time={3000}/>
     </div>
   );
 }

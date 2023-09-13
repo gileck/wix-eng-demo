@@ -1,10 +1,11 @@
-// import React from 'react'
-// function App() {
-//   return (
-//     <div>
-//       <h1>React App</h1>
-//     </div>
-//   );
-// }
-//
-// export default App;
+import React from 'react';
+import AppWithSuspense from "./AppWithSuspense";
+
+export function App() {
+    return <html>
+    <head></head>
+    <body>
+        <AppWithSuspense/>
+    </body>
+    </html>
+}

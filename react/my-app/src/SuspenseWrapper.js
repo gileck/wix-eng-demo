@@ -1,17 +1,36 @@
 import React, {useEffect} from 'react'
 
+function FallbackBox() {
+    return <div style={{
+        border: '1px solid black',
+        padding: '8px',
+        width: '200px',
+        backgroundColor: 'lightgray'
+    }}>
+        Loading...
+    </div>
+}
+
+function BoxWrapper(props) {
+    const [hydrated, setHydrated] = React.useState(false)
+    useEffect(() => {
+        setHydrated(true)
+    })
+    return <div style={{
+        border: '1px solid black',
+        padding: '8px',
+        width: '200px',
+        backgroundColor: hydrated ? 'lightblue' : 'lightgray'
+    }}>
+        {props.children} ({hydrated ? 'hydrated' : 'server-rendered'})
+    </div>
+}
+
 function wrapPromise(promise) {
     let status = 'pending'
-    let response
 
-    const suspender = promise.then(
-        (res) => {
+    const suspender = promise.then(() => {
             status = 'success'
-            response = res
-        },
-        (err) => {
-            status = 'error'
-            response = err
         }
     )
 
@@ -19,10 +38,9 @@ function wrapPromise(promise) {
         switch (status) {
             case 'pending':
                 throw suspender
-            case 'error':
-                throw response
             default:
-                return response
+                // Also possible to save the resolved value and return it
+                return status
         }
     }
 
@@ -30,64 +48,40 @@ function wrapPromise(promise) {
 }
 
 function SuspenseInner(props) {
-    console.log('rendering suspense inner')
+    // The read function throw the promise when it's not resolved
+    // and return a value when its resolved
     props.api.read()
     return props.children
 }
 
-function BoxWrapper(props) {
-
-    const [color, setColor] = React.useState('lightgray')
-    useEffect(() => {
-        setColor('lightblue')
-    })
-    return <div style={{
-        border: '1px solid black',
-        padding: '8px',
-        width: '200px',
-        backgroundColor: color
-    }}>
-        {props.children}
-    </div>
-}
-
-function Fallback() {
-    return <div>Loading...</div>
-}
-
-function createPromise(name) {
-    return wrapPromise(new Promise((resolve) => setTimeout(() => resolve(), 1000)))
+function createPromise(name, time) {
+    const promise = new Promise((resolve) => setTimeout(() => resolve(), isServer ? time : time * 2))
+    return wrapPromise(promise)
 }
 
 const isServer = typeof window === 'undefined'
+
 if (!isServer) {
     window.resolvers = {}
 }
-function createPromise2(name) {
-    return wrapPromise(new Promise((resolve) => resolvers[name] = resolve))
-}
 
-let times = {
-    'Comp1': isServer ? 0 : 4000,
-    'Comp2': isServer ? 0 : 5000,
-    'Comp3': isServer ? 0 : 6000
-}
-function createPromise3(name) {
-    return wrapPromise(new Promise((resolve) => setTimeout(() => resolve(), times[name])))
+function createPromise2(name) {
+    const promise = new Promise((resolve) => resolvers[name] = resolve)
+    return wrapPromise(promise)
 }
 
 function emptyPromise() {
     return wrapPromise(Promise.resolve())
 }
 
-console.log({isServer})
 export function SuspenseWrapper(props) {
-    // const api = !isServer ? createPromise2(props.name) : emptyPromise()
-    const api = createPromise(props.name)
-    console.log("here")
+    // const api = !isServer ? createPromise2(props.name, props.time) : emptyPromise()
 
+
+
+    const api = createPromise(props.name, props.time)
     return (
-        <React.Suspense fallback={<Fallback {...props} />}>
+        <React.Suspense fallback={<FallbackBox />}>
             <SuspenseInner api={api} {...props}>
                 <BoxWrapper {...props}>
                     {props.name}

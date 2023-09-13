@@ -1,19 +1,17 @@
 import path from 'path';
 import fs from 'fs';
-
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import express from 'express';
-
-import App from '../src/App';
-import AppWithSuspense from "../src/AppWithSuspense";
-import {ServerApp} from "../src/ServerApp";
-
+import { App } from '../src/App';
 const PORT = 3006;
 const app = express();
 
+/**
+ * express route handler for /stream
+ */
 app.get('/stream', (req, response) => {
-    const { pipe } = ReactDOMServer.renderToPipeableStream(<ServerApp />, {
+    const { pipe } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ['/bundle.js'],
         onShellReady() {
             response.setHeader('content-type', 'text/html');
