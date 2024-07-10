@@ -75,11 +75,11 @@ function emptyPromise() {
 }
 
 export function SuspenseWrapper(props) {
-    // const api = !isServer ? createPromise2(props.name, props.time) : emptyPromise()
+    const api = !isServer ? createPromise2(props.name, props.time) : emptyPromise()
 
 
 
-    const api = createPromise(props.name, props.time)
+    // const api = createPromise(props.name, props.time)
     return (
         <React.Suspense fallback={<FallbackBox />}>
             <SuspenseInner api={api} {...props}>
